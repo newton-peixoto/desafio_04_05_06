@@ -10,6 +10,8 @@ defmodule Flightex.Bookings.Report do
     {:ok, "Report generated successfully"}
   end
 
+  def create(_, _), do: {:error, "Invalid date format!"}
+
   defp build_booking_list(initial_date, final_date) do
     BookingAgent.get_all()
     |> Map.values()

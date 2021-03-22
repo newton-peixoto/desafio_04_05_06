@@ -1,21 +1,31 @@
 # Flightex
 
-**TODO: Add description**
+Desafio do módulo 2 do curso de elixir da RocketSeat. Permite a reserva de voos. 
 
-## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `flightex` to your list of dependencies in `mix.exs`:
+## Instalação
 
-```elixir
-def deps do
-  [
-    {:flightex, "~> 0.1.0"}
-  ]
-end
-```
+``git clone https://github.com/newton-peixoto/desafio_04_05_06.git``
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/flightex](https://hexdocs.pm/flightex).
+`` mix deps.get ``
 
+
+
+
+## Utilizando os Módulos
+
+<b> Substiuir YYYY-MM-DD 00:00:00 pela data desejada <b/>
+
+* iex -S mix
+
+* Flightex.start_agents
+
+* {:ok , user_id } = Flightex.create_user(%{name: "John", email: "john@email.com", cpf: "123456789"})
+
+* Flightex.create_booking(user_id, %{data_completa: ~N[YYYY-MM-DD 00:00:00], cidade_origem: "Cidade1", cidade_destino: "Cidade2"})
+
+* Flightex.get_booking(booking_id)
+
+* alias Flightex.Bookings.Report
+
+* Report.create(~N[YYYY-MM-DD 00:00:00], ~N[YYYY-MM-DD 00:00:00])
