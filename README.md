@@ -1,6 +1,6 @@
 # Flightex
 
-Desafio do módulo 2 do curso de elixir da RocketSeat. Permite a reserva de voos. 
+Desafio do módulo 2 do curso de elixir da RocketSeat. Permitir a reserva de voos. 
 
 
 ## Instalação
@@ -22,7 +22,7 @@ Desafio do módulo 2 do curso de elixir da RocketSeat. Permite a reserva de voos
 
 * {:ok , user_id } = Flightex.create_user(%{name: "John", email: "john@email.com", cpf: "123456789"})
 
-* Flightex.create_booking(user_id, %{data_completa: ~N[YYYY-MM-DD 00:00:00], cidade_origem: "Cidade1", cidade_destino: "Cidade2"})
+* {:ok , booking_id } Flightex.create_booking(user_id, %{data_completa: ~N[YYYY-MM-DD 00:00:00], cidade_origem: "Cidade1", cidade_destino: "Cidade2"})
 
 * Flightex.get_booking(booking_id)
 
