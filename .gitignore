@@ -29,4 +29,5 @@ flightex-*.tar
 report_*
 mix.lock
 .elixir_ls
+/builds.txt
 

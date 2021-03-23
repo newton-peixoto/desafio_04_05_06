@@ -2,12 +2,13 @@ defmodule Flightex.Bookings.Report do
   alias Flightex.Bookings.Agent, as: BookingAgent
   alias Flightex.Bookings.Booking
 
-  def create(%NaiveDateTime{} = initial_date, %NaiveDateTime{} = final_date) do
-    booking_list = build_booking_list(initial_date, final_date)
-    booking_list
-
-    File.write("report_#{NaiveDateTime.utc_now()}.csv", booking_list)
-    {:ok, "Report generated successfully"}
+  def create(initial_date, final_date) do
+    with {:ok, initial} <- parse_date(initial_date),
+         {:ok, final} <- parse_date(final_date) do
+      booking_list = build_booking_list(initial, final)
+      File.write("report_#{NaiveDateTime.utc_now()}.csv", booking_list)
+      {:ok, "Report generated successfully"}
+    end
   end
 
   def create(_, _), do: {:error, "Invalid date format!"}
@@ -20,6 +21,8 @@ defmodule Flightex.Bookings.Report do
   end
 
   defp bookings_in_range(booking, initial_date, final_date) do
+    IO.inspect(initial_date)
+
     NaiveDateTime.compare(booking.data_completa, initial_date) in [:eq, :gt] and
       NaiveDateTime.compare(booking.data_completa, final_date) in [:eq, :lt]
   end
@@ -28,4 +31,15 @@ defmodule Flightex.Bookings.Report do
     "#{booking.id_usuario},#{booking.cidade_origem},#{booking.cidade_destino}," <>
       "#{booking.data_completa}\n"
   end
+
+  defp parse_date(date) when is_bitstring(date) do
+    case NaiveDateTime.from_iso8601(date) do
+      {:ok, date} -> {:ok, date}
+      {:error, _reason} -> {:error, "Invalid date, cannot convert string to date"}
+    end
+  end
+
+  defp parse_date(%NaiveDateTime{} = date), do: date
+
+  defp parse_date(_date), do: {:error, "Invalid date"}
 end
