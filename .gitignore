@@ -26,7 +26,7 @@ flightex-*.tar
 # Temporary files for e.g. tests
 /tmp
 
-report_*
+rreport_*
 mix.lock
 .elixir_ls
 /builds.txt

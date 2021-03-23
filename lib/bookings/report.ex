@@ -6,12 +6,10 @@ defmodule Flightex.Bookings.Report do
     with {:ok, initial} <- parse_date(initial_date),
          {:ok, final} <- parse_date(final_date) do
       booking_list = build_booking_list(initial, final)
-      File.write("report_#{NaiveDateTime.utc_now()}.csv", booking_list)
+      File.write("rreport.csv", booking_list)
       {:ok, "Report generated successfully"}
     end
   end
-
-  def create(_, _), do: {:error, "Invalid date format!"}
 
   defp build_booking_list(initial_date, final_date) do
     BookingAgent.get_all()
@@ -21,8 +19,6 @@ defmodule Flightex.Bookings.Report do
   end
 
   defp bookings_in_range(booking, initial_date, final_date) do
-    IO.inspect(initial_date)
-
     NaiveDateTime.compare(booking.data_completa, initial_date) in [:eq, :gt] and
       NaiveDateTime.compare(booking.data_completa, final_date) in [:eq, :lt]
   end
